@@ -1,6 +1,12 @@
 package programmers.lv0;
 
+// lv0 문자열안에 문자열
 public class Lessons120908 {
+    /*
+    * 1. String의 contains(CharSequence) 메서드를 사용할 수 있다.
+    * 2. CharSequence를 구현하는 클래스로는 CharBuffer, Segment, String, StringBuffer, StringBuilder 등이 있다. (* API doc)
+    * 3. contains와 비슷한 역할을 하는 메서드를 구현해볼 수 있다.
+    * */
 
     // 풀이 1 - StringBuffer 사용
     public int solution1(String str1, String str2) {

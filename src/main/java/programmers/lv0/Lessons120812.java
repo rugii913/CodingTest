@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//lv0 최빈값 구하기
+// lv0 최빈값 구하기
 public class Lessons120812 {
 
     Class<?> parameterType = int.class;

@@ -50,7 +50,7 @@ public class Lessons120812 {
         return array[indexOfMode];
     }
 
-    //풀이 2
+    //풀이 2(다른 풀이 참고)
     public int solution2(int[] array) {
         List<Map.Entry<Integer, List<Integer>>> list =
                 new ArrayList<>(Arrays.stream(array).boxed()

@@ -19,7 +19,7 @@ public class Lessons120908 {
         return answer;
     }
 
-    // 풀이 2 - 다른 풀이 참고
+    // 풀이 2(다른 풀이 참고)
     // contains의 인자로 String을 넣을 수 있기 때문에 굳이 StringBuffer를 넣을 필요가 없음
     // 삼항 연산자 사용해서 더 간단하게
     public int solution2(String str1, String str2) {

@@ -1,7 +1,6 @@
 package programmers.lv0;
 
-import java.util.Arrays;
-
+// lv0 수 조작하기 1
 public class Lessons181926 {
 
     /*

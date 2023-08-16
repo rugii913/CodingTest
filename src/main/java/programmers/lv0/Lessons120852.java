@@ -1,7 +1,6 @@
 package programmers.lv0;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 // lv0 소인수 분해
 public class Lessons120852 {
@@ -10,6 +9,8 @@ public class Lessons120852 {
     * - 소인수 분해 알고리즘 관련 위 두 블로그 참고할 것
     * - 소인수 분해는 원래 brute forced이다. 조사할 대상은 sqrt로 줄일 수 있을 뿐
     *   - 자연수 n에 대해 n의 어떤 약수 x와 n/x에 대해 min(x, n/x) <= sqrtn이다.
+    * 
+    * - 풀이 3 알고리즘 코드 기억할 것
     * */
 
     // 풀이 1 - 8점...?
@@ -116,5 +117,37 @@ public class Lessons120852 {
             }
         }
         return true;
+    }
+
+    // 풀이 3(블로그 참고 변형) - https://st-lab.tistory.com/152 참고 - 풀이 1, 2보다 1/10 정도 속도인 듯하다.
+    public int[] solution3(int n) {
+        Set<Integer> primeFactorSet = new HashSet<>();
+
+        // !!! 기억해둘 알고리즘 코드
+        // 이 알고리즘에서는 더이상 인수가 아닐 때까지 계속 나눠주기 때문에, 합성수를 제외하는 알고리즘이 필요가 없다.
+        for (int i = 2; i <= n; i++) {
+            while (n % i == 0) {
+                primeFactorSet.add(i);
+                n /= i;
+            }
+        }
+
+        /*
+        return primeFactorSet.stream().sorted().mapToInt(Integer::intValue).toArray();
+        // 스트림이 짧긴 하지...
+        // TreeSet을 사용한다면 정렬 필요 없음 - 다만 느려질 듯
+        */
+        int length = primeFactorSet.size();
+        Integer[] wrappedPrimeFactors = primeFactorSet.toArray(new Integer[length]);
+        int[] primeFactors= new int[length];
+
+        for (int i = 0; i < length; i++) {
+            primeFactors[i] = wrappedPrimeFactors[i];
+        }
+
+        Arrays.sort(primeFactors);
+
+        return primeFactors;
+        // 역시 TreeSet을 사용한다면 정렬 필요 없어지고 약간 느려질 듯
     }
 }

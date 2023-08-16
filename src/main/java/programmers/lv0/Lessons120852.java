@@ -133,6 +133,19 @@ public class Lessons120852 {
         }
 
         /*
+        // 다른 풀이 참고 for -> while을 while -> if로 바꿀 수도 있다.
+        int i = 2;
+        while (n != 0 && i <= n) {
+            if (n % i == 0) {
+                primeFactorSet.add(i);
+                n /= i;
+            } else {
+                i++;
+            }
+        }
+         */
+
+        /*
         return primeFactorSet.stream().sorted().mapToInt(Integer::intValue).toArray();
         // 스트림이 짧긴 하지...
         // TreeSet을 사용한다면 정렬 필요 없음 - 다만 느려질 듯
@@ -141,8 +154,8 @@ public class Lessons120852 {
         Integer[] wrappedPrimeFactors = primeFactorSet.toArray(new Integer[length]);
         int[] primeFactors= new int[length];
 
-        for (int i = 0; i < length; i++) {
-            primeFactors[i] = wrappedPrimeFactors[i];
+        for (int j = 0; j < length; j++) {
+            primeFactors[j] = wrappedPrimeFactors[j];
         }
 
         Arrays.sort(primeFactors);

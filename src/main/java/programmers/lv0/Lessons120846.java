@@ -32,7 +32,7 @@ public class Lessons120846 {
             return 0;
         }
         for (int i = 3; i <= n; i++) {
-            if (isPrime(i)) {
+            if (!isPrime(i)) {
                 count++;
             }
         }
@@ -41,10 +41,10 @@ public class Lessons120846 {
     private boolean isPrime(int i) {
         for (int j = 2; j < i; j++) {
             if (i % j == 0) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     // 풀이 3(다른 풀이 참고)

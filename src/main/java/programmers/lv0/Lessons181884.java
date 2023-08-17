@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Lessons181884 {
     /*
     * - 풀이 2 -> for의 조건 자체를 줄 수 있음
+    *   ** 유의: 배열 숫자를 전부 더해도 sum <= n인 경우, 종료되지 않는다.
     * - 풀이 3 -> stream.reduce() 안에서 조건을 줄 수 있음
     * */
 
@@ -22,6 +23,7 @@ public class Lessons181884 {
     }
 
     // 풀이 2(다른 풀이 참고) - for의 조건 자체를 줄 수 있음
+    // ** 유의: 배열 숫자를 전부 더해도 sum <= n인 경우, 종료되지 않는다.
     public int solution2(int[] numbers, int n) {
         int sum = 0;
         for (int i = 0; sum <= n; i++) {

@@ -2,6 +2,7 @@ package programmers.lv0;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
@@ -10,7 +11,7 @@ public class Lessons120897 {
 
     // 풀이 1 - 한참 헤맸음. 메서드를 사용할 때 size가 줄어드는 Collection에서는 for 사용 시 주의!
     public int[] solution1(int n) {
-        TreeSet<Integer> set = new TreeSet<>();
+        NavigableSet<Integer> set = new TreeSet<>();
         for (int i = 1; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
                 set.add(i);

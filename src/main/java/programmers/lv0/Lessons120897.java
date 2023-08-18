@@ -1,6 +1,9 @@
 package programmers.lv0;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 // lv0 약수 구하기
 public class Lessons120897 {
@@ -34,5 +37,39 @@ public class Lessons120897 {
         }
 
         return answer;
+    }
+
+    // 풀이 2 - 배열 사용 두 번 순환 - 생각보다 길지 않다.
+    public int[] solution2(int n) {
+        int count = 0;
+        int[] tmpArray = new int[n];
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                tmpArray[count++] = i;
+            }
+        }
+
+        int[] divisors = new int[count];
+        for (int i = 0; i < count; i++) {
+            divisors[i] = tmpArray[i];
+        }
+        return divisors;
+    }
+
+    // 풀이 3(다른 풀이 참고) - stream 간단 명료
+    public int[] solution3(int n) {
+        // return IntStream.rangeClosed(1, n).filter(i -> n % i == 0).toArray();
+        return IntStream.rangeClosed(1, n).filter(i -> n % i == 0).toArray();
+    }
+
+    // 풀이 4(다른 풀이 참고) - List 사용
+    public int[] solution4(int n) {
+        List<Integer> answer = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                answer.add(i);
+            }
+        }
+        return answer.stream().mapToInt(x -> x).toArray();
     }
 }

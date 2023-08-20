@@ -1,9 +1,6 @@
 package programmers.lv0;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // lv0 한 번만 등장한 문자
@@ -105,6 +102,35 @@ public class Lessons120896 {
         }
 
         return sb.toString();
+    }
+
+    // 풀이 2-1(다른 풀이 참고) - *** 한 번만 등장한 문자를 골라내는 알고리즘 + Set 사용
+    public String solution2_1(String s) {
+        /*
+        HashSet<String> set = new HashSet<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            String replace = s.replace(s.charAt(i) + "", "");
+            if(s.length() - replace.length() == 1){
+                set.add(s.charAt(i)+"");
+            }
+        }
+        ArrayList<String> list = new ArrayList<>(set);
+        Collections.sort(list);
+        return String.join("", list);
+        */
+        NavigableSet<String> set = new TreeSet<>();
+
+        // *** 한 번만 등장한 문자를 골라내는 알고리즘
+        for (int i = 0; i < s.length(); i++) {
+            String replace = s.replace(String.valueOf(s.charAt(i)), "");
+            if(s.length() - replace.length() == 1){
+                set.add(String.valueOf(s.charAt(i)));
+            }
+        }
+        // ArrayList<String> list = new ArrayList<>(set);
+        // Collections.sort(list); // TreeSet을 쓰면 sort할 필요도 없고 따라서 위처럼 Arraylist로 바꿔줄 필요도 없음
+        return String.join("", set);
     }
 
     // 풀이 3(다른 풀이 참고) - 전체 소문자 알파벳에 대해 출현 횟수를 셈

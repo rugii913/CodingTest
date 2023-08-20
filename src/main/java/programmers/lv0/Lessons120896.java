@@ -1,7 +1,10 @@
 package programmers.lv0;
 
+import java.util.Arrays;
+import java.util.Map;
 import java.util.NavigableSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 // lv0 한 번만 등장한 문자
 public class Lessons120896 {
@@ -119,5 +122,18 @@ public class Lessons120896 {
             }
         }
         return answer.toString();
+    }
+
+    // 풀이 4(다른 풀이 참고) - stream
+    public String solution4(String s) {
+        // 이해가 잘 안 됨 ** groupingBy
+        return Arrays.stream(s.split(""))
+                .collect(Collectors.groupingBy(s1 -> s1))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().size() <= 1)
+                .map(Map.Entry::getKey)
+                .sorted()
+                .collect(Collectors.joining());
     }
 }

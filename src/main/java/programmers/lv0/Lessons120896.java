@@ -162,4 +162,24 @@ public class Lessons120896 {
                 .sorted()
                 .collect(Collectors.joining());
     }
+
+    // 풀이 5(다른 풀이 참고) - map.getOrDefault(~), 정렬은 Arrays.sort(~) 이용
+    public String solution5(String s) {
+        char[] chars = s.toCharArray();
+        Map<Character, Integer> charCountMap = new HashMap();
+
+        for(char c : chars){
+            charCountMap.put(c, charCountMap.getOrDefault(c, 0) +1);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : charCountMap.keySet()) {
+            if (charCountMap.get(c) == 1) {
+                sb.append(c);
+            }
+        }
+        char[] charArr = sb.toString().toCharArray();
+        Arrays.sort(charArr);
+        return new String(charArr);
+    }
 }

@@ -71,6 +71,77 @@ public class Lessons120896 {
         return sb.append(uniqueChars).toString();
     }
 
+    // 풀이 1-1(다른 풀이 참고) - 배열만 사용
+    // 배열을 정렬한 뒤 원소의 앞 뒤를 조사 // 원소의 앞 뒤가 없는 length 1짜리 배열 및 배열의 맨 앞 맨 뒤만 특수하게 취급
+    public String solution1_1(String s) {
+        int stringLength = s.length();
+        // char 배열로 만들어 정렬한다.
+        char[] chars = s.toCharArray();
+        char tmp;
+        for (int i = 0; i < stringLength; i++) {
+            for (int j = 0; j < stringLength; j++) {
+                if (chars[i] < chars[j]) {
+                    tmp = chars[i];
+                    chars[i] = chars[j];
+                    chars[j] = tmp;
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        // 한 번만 등장한 char를 걸러내는 알고리즘
+        for (int i = 0; i < chars.length; i++) {
+            if (chars.length == 1) {
+                sb.append(chars[0]);
+                break;
+            }
+
+            if (i != 0 && i != chars.length - 1) {
+                if (chars[i] != chars[i - 1] && chars[i] != chars[i + 1])
+                    sb.append(chars[i]);
+            } else if (i == 0) {
+                if (chars[i] != chars[i + 1]) sb.append(chars[i]);
+            } else if (i == chars.length - 1) {
+                if (chars[i] != chars[i - 1]) sb.append(chars[i]);
+            }
+        }
+
+        return sb.toString();
+
+        /*
+        // (다른 사람 원래 풀이)
+        String answer = "";
+        char[] arr = new char[s.length()];
+
+        for (int i = 0; i < s.length(); i++) arr[i] = s.charAt(i);
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
+                if ((int)arr[j] <= (int)arr[i]) {
+                    char chr = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = chr;
+                }
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr.length == 1) { answer = arr[0] + ""; break; }
+
+            if (i != 0 && i != arr.length - 1) {
+                if (arr[i] != arr[i - 1] && arr[i] != arr[i + 1])
+                    answer += arr[i];
+            } else if (i == 0) {
+                if (arr[i] != arr[i + 1]) answer += arr[i];
+            } else if (i == arr.length - 1) {
+                if (arr[i] != arr[i - 1]) answer += arr[i];
+            }
+        }
+
+        return answer;
+        */
+    }
+
     // 풀이 2 - TreeSet 사용 - 코드가 그렇게 많이 줄어들지 않는다.
     public String solution2(String s) {
         NavigableSet<String> set = new TreeSet<>();

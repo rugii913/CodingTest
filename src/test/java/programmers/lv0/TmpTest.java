@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TmpTest {
-    Lessons120896 solution = new Lessons120896();
-    String s = "hello";
-    String result = "eho";
+    Lessons120913 solution = new Lessons120913();
+    String my_str = "abc1Addfggg4556b";
+    int n = 6;
+    String[] result = {"abc1Ad", "dfggg4", "556b"};
 
     @Test
     void solution() {
-        assertEquals(result, solution.solution2(s));
+        assertArrayEquals(result, solution.solution1(my_str, n));
     }
 }

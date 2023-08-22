@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TmpTest {
-    Lessons120913 solution = new Lessons120913();
-    String my_str = "abc1Addfggg4556b";
-    int n = 6;
-    String[] result = {"abc1Ad", "dfggg4", "556b"};
+    Lessons120863 solution = new Lessons120863();
+    String polynomial = "3 + 5x + 6 + 8 + 9 + 10x";
+    String result = "4x + 7";
 
     @Test
     void solution() {
-        assertArrayEquals(result, solution.solution1(my_str, n));
+        assertEquals(result, solution.solutionex(polynomial));
     }
 }

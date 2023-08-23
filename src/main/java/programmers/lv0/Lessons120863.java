@@ -40,7 +40,7 @@ public class Lessons120863 {
 
         StringBuilder sb = new StringBuilder();
         if (coeff != 0) {
-            if (coeff == 1) { // x의 계수가 1인 경우의 반환값 때문에 한참 헤맸음
+            if (coeff == 1) { // x의 계수가 1인 경우 때문에 한참 헤맸음
                 sb.append('x');
             } else {
                 sb.append(coeff).append("x");
@@ -97,19 +97,73 @@ public class Lessons120863 {
         }
     }
 
-    // 풀이 2(다른 풀이 참고) - 풀이 1에 비해 많이 느림 약 10ms 정도 - 아마 마지막 삼항 연산자 부분 때문인 것 같다.
+    // 풀이 2(다른 풀이 참고) - 풀이 1에 비해 많이 느림 약 10ms 정도
+    // - 아마 마지막 삼항 연산자 부분 때문인 것 같다.
+    // - 마지막 부분만 풀이 1 방식으로 변경해도 10ms -> 0.1ms 정도로 줄어든다.(풀이 1보다 빠름)
     public String solution2(String polynomial) {
+        /*
+        변수명 수정함 xCount -> coeff, num -> constant, s -> term
         int xCount = 0;
         int num = 0;
+        */
+        int coeff = 0;
+        int constant = 0;
 
-        for (String s : polynomial.split(" ")) {
-            if (s.contains("x")) {
-                xCount += s.equals("x") ? 1 : Integer.parseInt(s.replaceAll("x", ""));
-            } else if (!s.equals("+")) {
-                num += Integer.parseInt(s);
+        for (String term : polynomial.split(" ")) {
+            if (term.contains("x")) {
+                coeff += term.equals("x") ? 1 : Integer.parseInt(term.replaceAll("x", ""));
+            } else if (!term.equals("+")) {
+                constant += Integer.parseInt(term);
             }
         }
-        return (xCount != 0 ? xCount > 1 ? xCount + "x" : "x" : "") + (num != 0 ? (xCount != 0 ? " + " : "") + num : xCount == 0 ? "0" : "");
+        return (coeff != 0 ? coeff > 1 ? coeff + "x" : "x" : "") + (constant != 0 ? (coeff != 0 ? " + " : "") + constant : coeff == 0 ? "0" : "");
+        // String + 연산, 삼항 연산 등 때문에 느린 듯하다.
+    }
+
+
+    // 풀이 3(다른 풀이 참고) - StringTokenizer 사용, 풀이 1보다 약간 더 빠름
+    // StringTokenizer - string.split(~)보다 강화된 것처럼 생각해볼 수 있을 듯
+    public String solution3(String polynomial) {
+        // StringTokenizer st = new StringTokenizer(polynomial, " + "); // delim 인자 " + "로 넣으나 " +"로 넣으나 같음
+        StringTokenizer st = new StringTokenizer(polynomial, " +");
+
+        int xsum = 0; // 1차항 계수 합
+        int sum = 0; // 상수항 계수 합
+        while (st.hasMoreTokens()) {
+            String term = st.nextToken(); // 변수명 변경 str -> term
+
+            if (term.contains("x")) {
+                String coeff = term.replace("x", ""); // 변수명 변경 x -> coeff
+                // System.out.println(x); 원래 풀이 중 필요 없는 부분 주석 처리
+                if (coeff.isBlank()) {
+                    xsum += 1;
+                } else {
+                    xsum += Integer.parseInt(coeff);
+                }
+            } else {
+                sum += Integer.parseInt(term);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder(); // 원래 풀이에서 위에 있던 new StringBuilder() 위치를 여기로 변경  
+        if (xsum == 0) {
+            sb.append(sum);
+        } else if (sum == 0) {
+            if (xsum == 1) {
+                sb.append("x");
+            } else {
+                sb.append(xsum).append("x");
+            }
+        } else {
+            if (xsum == 1) {
+                sb.append("x").append(" + ").append(sum);
+            } else {
+                sb.append(xsum).append("x").append(" + ").append(sum);
+            }
+
+        }
+
+        return sb.toString();
     }
 
     // 풀이 실패 - replace, split 사용하지 않으려했으나 포기

@@ -1,0 +1,103 @@
+package programmers.lv0;
+
+// lv0 안전지대
+public class Lessons120866 {
+
+    // 풀이 1 - board의 모든 위치를 조사해서 주변에 1이 있으면 2로 바꾸기 
+    // ** 2차원 배열 사각 격자로 생각할 때 y축 먼저 접근함에 유의할 것
+    public int solution1(int[][] board) {
+        int n = board.length;
+        for (int y = 0; y < n; y++) {
+            for (int x = 0; x < n; x++) {
+                investigate(y, x, board);
+            }
+        }
+
+        int numOfZero = 0;
+        for (int y = 0; y < n; y++) {
+            for (int x = 0; x < n; x++) {
+                if (board[y][x] == 0) {
+                    numOfZero++;
+                }
+            }
+        }
+        return numOfZero;
+    }
+    private void investigate(int y, int x, int[][] board) {
+        int n = board.length;
+        if (board[y][x] == 1) { // 이 부분 없으면 실패 -
+            return;
+        }
+
+        for (int j = Math.max(y - 1, 0); j <= Math.min(y + 1, n - 1); j++) {
+            for (int i = Math.max(x - 1, 0); i <= Math.min(x + 1, n - 1); i++) {
+                if (board[j][i] == 1) {
+                    board[y][x] = 2;
+                }
+            }
+        }
+    }
+    private void investigatex(int y, int x, int[][] board) {
+        // 실패하는 코드 - 테스트 1에서 실패
+        // 원래 1이었던 위치 주변에 다른 1이 있으면 2로 바꿔버린다. - 특히 y + 1, x -1 위치에 다른 1이 있는 경우 문제가 된다.
+        // 0 0 0     2 2 2
+        // 0 1 0 >>> 2 2 0 이렇게 되어버림
+        // 1 0 0     1 2 0
+        int n = board.length;
+
+        for (int j = Math.max(y - 1, 0); j <= Math.min(y + 1, n - 1); j++) {
+            for (int i = Math.max(x - 1, 0); i <= Math.min(x + 1, n - 1); i++) {
+                if (i == x && j == y) {
+                    continue;
+                }
+                if (board[j][i] == 1) {
+                    board[y][x] = 2;
+                }
+            }
+        }
+    }
+
+    // 풀이 2 - 지뢰의 위치를 먼저 얻고, 각 지뢰 주변의 값을 2로 바꾸기
+    public int solution2(int[][] board) {
+        int n = board.length;
+
+        // 지뢰 위치 x, y 값을 int[2]로 저장 - [x, y]
+        int numOfMines = 0;
+        int[][] tmpCoordinatesOfMines = new int[n * n][2];
+        for (int y = 0; y < n; y++) {
+            for (int x = 0; x < n; x++) {
+                if (board[y][x] == 1) {
+                    tmpCoordinatesOfMines[numOfMines][0] = x;
+                    tmpCoordinatesOfMines[numOfMines][1] = y;
+                    numOfMines++;
+                }
+            }
+        }
+
+        // 지뢰 위치를 지뢰 개수에 맞춰서 배열 복사
+        int[][] coordinatesOfMines = new int[numOfMines][2];
+        System.arraycopy(tmpCoordinatesOfMines, 0, coordinatesOfMines, 0, numOfMines);
+
+        // 각 지뢰마다 주변 값들 중 0인 곳만 2로 바꿔줌
+        for (int[] mineCoordinates : coordinatesOfMines) {
+            for (int y = Math.max(mineCoordinates[1] - 1, 0); y <= Math.min(mineCoordinates[1] + 1, n - 1); y++) {
+                for (int x = Math.max(mineCoordinates[0] - 1, 0); x <= Math.min(mineCoordinates[0] + 1, n - 1); x++) {
+                    if (board[y][x] == 0) {
+                        board[y][x] = 2;
+                    }
+                }
+            }
+        }
+
+        // board 전체 탐색해서 0인 개수 합 가져오기
+        int numOfZero = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 0) {
+                    numOfZero++;
+                }
+            }
+        }
+        return numOfZero;
+    }
+}

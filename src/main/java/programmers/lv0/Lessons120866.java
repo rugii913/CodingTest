@@ -101,7 +101,7 @@ public class Lessons120866 {
         return numOfZero;
     }
 
-    // 풀이 3 - 둘러싸는 액자 배열 사용
+    // 풀이 3(다른 풀이 참고) - 둘러싸는 액자 배열 사용
     public int solution3(int[][] board) {
         int answer = 0;
 
@@ -148,5 +148,36 @@ public class Lessons120866 {
         }
 
         return answer;
+    }
+
+    // 풀이 4(다른 풀이 참고) - dx, dy 사용
+    public int solution4(int[][] board) {
+        // 순서대로 좌, 좌하, 하, 우하, 우, 우상, 상, 좌상
+        final int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1};
+        final int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};
+
+        int safe = 0;
+        int danger = 0;
+
+        // 마크 작업과 개수 파악을 위한 순회를 한 번에
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board.length; x++) {
+                if (board[y][x] == 1) {
+                    danger++;
+                    for (int k = 0; k < 8; k++) { // dx, dy 배열 순회
+                        // dx, dy를 한 번에 가져오므로 2중 for문을 1개의 for문으로 바꿀 수 있다.
+                        if (y + dy[k] >= 0 && y + dy[k] < board.length && x + dx[k] >= 0 && x + dx[k] < board.length && board[y + dy[k]][x + dx[k]] == 0) {
+                            // 이 부분을 max min으로 바꾸고 싶은데, 좋은 방법이 떠오르지 않는다.
+                            board[y + dy[k]][x + dx[k]] = 2; // 위 조건에 "board[y + dy[k]][x + dx[k]] == 0"로 거르고 있으므로, 마킹 해놓는 작업은 필요하다.
+                            danger++;
+                        }
+                    }
+                }
+            }
+        }
+
+        safe = board.length * board.length - danger;
+
+        return safe;
     }
 }

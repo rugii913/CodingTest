@@ -100,4 +100,53 @@ public class Lessons120866 {
         }
         return numOfZero;
     }
+
+    // 풀이 3 - 둘러싸는 액자 배열 사용
+    public int solution3(int[][] board) {
+        int answer = 0;
+
+        int length = board.length; //길이
+        int[][] temp = new int[length + 2][length + 2];
+        // 상하좌우로 1씩 늘린 배열 생성
+
+        // 액자에 board 이식
+        for (int y = 1; y < length + 1; y++) {
+            for (int x = 1; x < length + 1; x++) {
+                temp[y][x] = board[y - 1][x - 1];
+            }
+        }
+        /*
+                00000
+        110     01100
+        111 ->  01110 이런 모양새로 만든 것
+        010     00100
+                00000
+         */
+
+        // 위험지대 찾기 *4중첩 for문... - 제한 사항도 있고 걸러지는 부분도 있어서 그렇게 느리진 않지만 가독성이...
+        for (int y = 1; y < length + 1; y++) {
+            for (int x = 1; x < length + 1; x++) {
+                if (temp[y][x] == 1) {
+                    for (int j = y - 1; j <= y + 1; j++) {
+                        for (int i = x - 1; i <= x + 1; i++) {
+                            if (temp[j][i] != 1) {
+                                temp[j][i] = 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // 안전지대 카운트
+        for (int i = 1; i < length + 1; i++) {
+            for (int j = 1; j < length + 1; j++) {
+                if (temp[i][j] == 0) {
+                    answer++;
+                }
+            }
+        }
+
+        return answer;
+    }
 }

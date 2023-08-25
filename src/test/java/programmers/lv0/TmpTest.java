@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TmpTest {
-    Lessons120878 solution = new Lessons120878();
-    int a = 29;
-    int b = 23;
+    Lessons120875 solution = new Lessons120875();
+    int[][] dots = {{1, 4}, {9, 2}, {3, 8}, {11, 6}};
     int result = 1;
 
     @Test
     void solution() {
-        assertEquals(result, solution.solution2(a, b));
+        assertEquals(result, solution.solution1_2(dots));
     }
 }

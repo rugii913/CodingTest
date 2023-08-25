@@ -2,9 +2,14 @@ package programmers.lv0;
 
 // lv0 평행
 public class Lessons120875 {
+    // cf. combination과는 약간 다른 형태임
+    // 4개 중 순서 없이 2개를 골라냄 (x)
+    // 4개 중 순서 없이 2개를 골라냄 - 남은 2개 중 2개를 골라냄 - 앞에서 선택하든 뒤에서 선택하든 결과는 같으므로 (/ 2) 해야 함 => 3
+    // 실제로는 기준을 0번 인덱스로 정하고 3점 중 한 점을 고르면 나머지 점은 알아서 골라지는 형태가 됨
 
     // 풀이 x - "주어진 네 개의 점을 두 개씩 이었을 때"가 (점 1 ~ 점 2) (점 1 ~ 점 3) 이렇게 같은 점 있는 경우는 포함되지 않는 것이라고 함.
     // https://school.programmers.co.kr/questions/44837 참고
+    // -> 4점 중 3점이 일직선에 있고 한 점이 떨어져 있는 경우가 문제
     public int solutionx(int[][] dots) {
         // 직선 6개 기울기 -> 기약분수로 만들어서 비교
         int combination2OfDots = factorial(dots.length) / (factorial(dots.length - 2) * 2);
@@ -129,6 +134,75 @@ public class Lessons120875 {
                     comparison = ((dots[j][1] - dots[k][1]) / (double) (dots[j][0] - dots[k][0]));
                 }
             }
+
+            if (slope == comparison) {
+                answer = 1;
+                break;
+            }
+        }
+        return answer;
+    }
+    // 풀이 1-2 - 풀이 1, 1-1 수정
+    public int solution1_2(int[][] dots) {
+        // 3가지 경우의 수 (0-1 2-3 비교) (0-2 1-3 비교) (0-3 1-2 비교)
+        int answer = 0;
+
+        for (int i = 1; i < dots.length; i++) { // i = dots[0]과 이어질 dot의 인덱스
+            boolean[] isUsedIndex = {true, false, false, false}; // 사용 중인 인덱스를 표시할 변수 - for문 돌 때마다 초기화
+
+            isUsedIndex[i] = true; // i 인덱스를 표시해둔다.
+            double slope = ((dots[i][1] - dots[0][1]) / (double) (dots[i][0] - dots[0][0]));
+
+            double comparison = 0;
+            int compEndIndex1 = -1;
+            int compEndIndex2 = -1;
+            for (int j = 1; j < dots.length; j++) {
+                if (!isUsedIndex[j]) {
+                    isUsedIndex[j] = true;
+                    compEndIndex1 = j;
+                    break;
+                }
+            }
+            for (int k = 1; k < dots.length; k++) {
+                if (!isUsedIndex[k]) {
+                    // isUsedIndex[k] = true; 마지막이므로 굳이 표시할 필요는 없다. - for문 앞으로 돌아갈 때 초기화될 것이기도 하고.
+                    compEndIndex2 = k;
+                    break;
+                }
+            }
+            comparison = ((dots[compEndIndex1][1] - dots[compEndIndex2][1]) / (double) (dots[compEndIndex1][0] - dots[compEndIndex2][0]));
+
+            if (slope == comparison) {
+                answer = 1;
+                break;
+            }
+        }
+        return answer;
+    }
+    // 풀이 1-3 - 줄일 수 있는 부분 더 줄이기
+    public int solution1_3(int[][] dots) {
+        // 3가지 경우의 수 (0-1 2-3 비교) (0-2 1-3 비교) (0-3 1-2 비교)
+        int answer = 0;
+
+        for (int i = 1; i < dots.length; i++) { // i = dots[0]과 이어질 dot의 인덱스
+            boolean[] isUsedIndex = {true, false, false, false}; // 사용 중인 인덱스를 표시할 변수 - for문 돌 때마다 초기화
+
+            isUsedIndex[i] = true; // i 인덱스를 표시해둔다.
+            double slope = ((dots[i][1] - dots[0][1]) / (double) (dots[i][0] - dots[0][0]));
+
+            double comparison = 0;
+            int compEndIndex1 = 1;
+            int compEndIndex2 = 1;
+
+            while (isUsedIndex[compEndIndex1]) { // isUsedIndex == false 나올 때까지 인덱스 + 1하기 // while 본문 비우고 compEndIndex1++ 형태로 둬도 되지만, IDE에서 노란 경고 띄워서 아래로 내려줬음
+                compEndIndex1++;
+            }
+            isUsedIndex[compEndIndex1] = true;
+            while (isUsedIndex[compEndIndex2]) {
+                compEndIndex2++;
+            }
+
+            comparison = ((dots[compEndIndex1][1] - dots[compEndIndex2][1]) / (double) (dots[compEndIndex1][0] - dots[compEndIndex2][0]));
 
             if (slope == comparison) {
                 answer = 1;

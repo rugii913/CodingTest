@@ -142,7 +142,7 @@ public class Lessons120875 {
         }
         return answer;
     }
-    // 풀이 1-2 - 풀이 1, 1-1 수정
+    // 풀이 1-2 - 풀이 1, 1-1 수정 - boolean[] isUsedIndex 사용 - for 3중첩을 하나의 for로 바꿈
     public int solution1_2(int[][] dots) {
         // 3가지 경우의 수 (0-1 2-3 비교) (0-2 1-3 비교) (0-3 1-2 비교)
         int answer = 0;
@@ -210,5 +210,80 @@ public class Lessons120875 {
             }
         }
         return answer;
+    }
+
+    // 풀이 2(다른 풀이 참고) - %를 이용해서 돌리기
+    public int solution2(int[][] dots) {
+        int x1 = dots[3][0];
+        int y1 = dots[3][1];
+        for (int i = 0; i < 3; i++) {
+            int x2 = dots[i][0];
+            int y2 = dots[i][1];
+            int x3 = dots[(i + 1) % 3][0];
+            int y3 = dots[(i + 1) % 3][1];
+            int x4 = dots[(i + 2) % 3][0];
+            int y4 = dots[(i + 2) % 3][1];
+            if ((y2 - y1) / (double) (x2 - x1) == (y4 - y3) / (double) (x4 - x3)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    // 풀이 3(다른 풀이 참고) - 검사할 쌍들을 미리 정해놓음 checkCases -> 아래 더 나은 풀이들 3-1, 3-2
+    private int xPos = 0;
+    private int yPos = 1;
+    private int[][] checkCases = {{0, 1, 2, 3}, {0, 2, 1, 3}, {0, 3, 1, 2}};
+    public int solution3(int[][] dots) {
+        int answer = 0;
+        for (int[] checkCase : checkCases) {
+            if (checkParallel(checkCase, dots)) {
+                answer = 1;
+                break;
+            }
+        }
+
+        return answer;
+    }
+    private boolean checkParallel(int[] checkCase, int[][] dots) {
+        int xPos1 = dots[checkCase[0]][xPos];
+        int yPos1 = dots[checkCase[0]][yPos];
+        int xPos2 = dots[checkCase[1]][xPos];
+        int yPos2 = dots[checkCase[1]][yPos];
+        int xPos3 = dots[checkCase[2]][xPos];
+        int yPos3 = dots[checkCase[2]][yPos];
+        int xPos4 = dots[checkCase[3]][xPos];
+        int yPos4 = dots[checkCase[3]][yPos];
+        // (y4 - y3)(x2 - x1) - (x4 - x3)(y2 - y1) 평행여부 조건
+        int chk = ((yPos4 - yPos3) * (xPos2 - xPos1)) - ((xPos4 - xPos3) * (yPos2 - yPos1));
+        if (chk == 0) {
+            return true;
+        }
+        return false;
+    }
+    // 풀이 3-1(다른 풀이 참고) - 이것보단 3-2를 볼 것
+    public int solution3_1(int[][] dots) {
+        if (parallel(0, 1, 2, 3, dots)) return 1;
+        if (parallel(0, 2, 1, 3, dots)) return 1;
+        if (parallel(0, 3, 1, 2, dots)) return 1;
+        return 0;
+    }
+    boolean parallel(int a, int b, int c, int d, int[][] dots) {
+        int x = (dots[a][0] - dots[b][0]) * (dots[c][1] - dots[d][1]);
+        int y = (dots[a][1] - dots[b][1]) * (dots[c][0] - dots[d][0]);
+        return x == y || x == -y;
+    }
+    // 풀이 3-2(다른 풀이 참고)
+    int[][] dx = {{0, 1, 2, 3}, {0, 2, 1, 3}, {0, 3, 1, 2}};
+    public int solution3_2(int[][] dots) {
+        for (int[] d : dx) {
+            if (check(dots[d[0]], dots[d[1]], dots[d[2]], dots[d[3]])) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    private boolean check(int[] d1, int[] d2, int[] d3, int[] d4) {
+        return ((d2[1] - d1[1]) * 1.0 / (d2[0] - d1[0])) == ((d4[1] - d3[1]) * 1.0 / (d4[0] - d3[0]));
     }
 }

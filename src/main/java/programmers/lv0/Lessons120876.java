@@ -169,52 +169,56 @@ public class Lessons120876 {
             return countDot;
         }
     }
-    // 풀이 1_1 - 점으로 따지기 수정 - 테스트 10 실패 - 맞닿은 경우 때문인 듯하다.
+    // 풀이 1_1 - 점으로 따지기 수정
     public int solution1_1(int[][] lines) {
         int max = Math.max(Math.max(lines[0][1], lines[1][1]), lines[2][1]);
         int min = Math.min(Math.min(lines[0][0], lines[1][0]), lines[2][0]);
 
         int[] dots = new int[max - min + 1]; // => min(==min+0)이 dots[0], max(==min+max-min)가 dots[max - min]
+
+        int countIntersection = 0;
+        int[][] intersections = {};
+        int sectionStart = Integer.MAX_VALUE;
+        int sectionEnd = Integer.MIN_VALUE;
+
         for (int i = 0; i < dots.length; i++) {
             for (int[] line : lines) {
                 if (min + i >= line[0] && min + i <= line[1]) {
                     dots[i]++;
                 }
             }
-        }
-        /*
-        for (int i = 0; i < dots.length; i++) {
-            if (dots[i] <= 1) {
-                dots[i] = 0;
-            } else {
-                dots[i] = 1;
-            }
-        }
-         */
+            if (dots[i] >= 2 && sectionStart == Integer.MAX_VALUE) { // sectionStart를 기록
+                sectionStart = i;
+            } else if (dots[i] == 1 && sectionStart != Integer.MAX_VALUE) { // sectionEnd와 countIntersection을 기록
+                sectionEnd = i - 1;
+                int[][] tmp = new int[++countIntersection][2];
+                System.arraycopy(intersections, 0, tmp, 0, intersections.length);
+                tmp[countIntersection - 1][0] = sectionStart;
+                tmp[countIntersection - 1][1] = sectionEnd;
+                intersections = tmp;
 
-        boolean hasBreakpoint = false;
-        for (int j = 1; j < dots.length; j++) {
-            if (dots[j] > 1 && dots[j - 1] == 1) {
-                hasBreakpoint = true;
-                break;
-            }
-        }
-
-        int intersectionDotCount = 0;
-        for (int dot : dots) {
-            if (dot >= 2) {
-                intersectionDotCount++;
+                sectionStart = Integer.MAX_VALUE;
+                sectionEnd = Integer.MIN_VALUE;
+            } else if (i == dots.length -1 && sectionStart != Integer.MAX_VALUE) {
+                sectionEnd = i;
+                int[][] tmp = new int[++countIntersection][2];
+                System.arraycopy(intersections, 0, tmp, 0, intersections.length);
+                tmp[countIntersection - 1][0] = sectionStart;
+                tmp[countIntersection - 1][1] = sectionEnd;
+                intersections = tmp;
             }
         }
 
-        if (hasBreakpoint) {
-            return intersectionDotCount - 1;
+        if (intersections.length == 0) {
+            return 0;
+        } else if (intersections.length == 1) {
+            return intersections[0][1] - intersections[0][0];
         } else {
-            return intersectionDotCount - 1;
+            return (intersections[0][1] - intersections[0][0]) + (intersections[1][1] - intersections[1][0]);
         }
     }
 
-    // 풀이 2 - sort 후 경우의 수 - 1 실패
+    // 풀이 2 - sort 후 경우의 수 - 테스트 1 실패
     // (1) 겹치는 곳이 나눠져 있지 않은 경우 start = line[0][0], end = Math.max(line[0][1], line[1][1])
     // (2) 겹치는 곳이 나눠져 있는 경우 start1 = line[0][0], end1 = Math.max
     public int solution2(int[][] lines) {
@@ -238,7 +242,8 @@ public class Lessons120876 {
         }
         
         // 겹치는 두 영역이 이어져 있는 경우
-        if (lines[0][1] >= lines[2][0]) {
+        // if (lines[0][1] >= lines[2][0]) { // lines[0][1] == lines[1][1] == lines[2][0]인 경우가 문제가 된다.
+        if (lines[0][1] > lines[2][0]) {
             int start = lines[1][0]; // 정렬되어 있으므로 겹치는 start는 어쨌든 lined[1][0]에서 시작
             // end는 lines[0][1], lines[1][1], lines[2][1] 중 두 번째로 큰 값
             int end;
@@ -257,7 +262,7 @@ public class Lessons120876 {
             return end - start;
         }
 
-        // 겹치는 영역이 한 곳만 있거나, 겹치는 두 영역이 나눠져 있는 경우 if (lines[0][1] < lines[2][0]) { ~ } 생략
+        // 겹치는 영역이 한 곳만 있거나, 겹치는 두 영역이 나눠져 있는 경우 if (lines[0][1] <= lines[2][0]) { ~ } 생략
         int sum = 0;
         if (lines[0][1] > lines[1][0]) {
             sum += lines[0][1] - lines[1][0];

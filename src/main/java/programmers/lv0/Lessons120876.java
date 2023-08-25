@@ -265,10 +265,10 @@ public class Lessons120876 {
         // 겹치는 영역이 한 곳만 있거나, 겹치는 두 영역이 나눠져 있는 경우 if (lines[0][1] <= lines[2][0]) { ~ } 생략
         int sum = 0;
         if (lines[0][1] > lines[1][0]) {
-            sum += lines[0][1] - lines[1][0];
+            sum += Math.min(lines[0][1], lines[1][1]) - lines[1][0];
         }
         if (lines[1][1] > lines[2][0]) {
-            sum += lines[1][1] - lines[2][0];
+            sum += Math.min(lines[1][1], lines[2][1]) - lines[2][0];
         }
         return sum;
     }

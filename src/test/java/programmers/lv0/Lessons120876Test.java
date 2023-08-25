@@ -10,7 +10,7 @@ class Lessons120876Test {
     int[][] lines2 = {{-1, 1}, {1, 3}, {3, 9}}; // x
     int[][] lines3 = {{0, 5}, {3, 9}, {1, 10}}; // 1-2-3
     int[][] lines4 = {{0, 2}, {2, 6}, {4, 6}};
-    int[][] lines5 = {{0, 3}, {1, 2}, {3, 4}}; // 실패 케이스
+    int[][] lines5 = {{0, 3}, {1, 2}, {3, 4}}; // 풀이 1-1 실패 케이스 dots = [1, 2, 2, 2, 1]이 되므로 실패
     int result1 = 2;
     int result2 = 0;
     int result3 = 8;
@@ -18,11 +18,20 @@ class Lessons120876Test {
     int result5 = 1; // 실패 케이스
 
     @Test
-    void solution() {
+    void solution1_1() {
         assertEquals(result1, solution.solution1_1(lines1));
         assertEquals(result2, solution.solution1_1(lines2));
         assertEquals(result3, solution.solution1_1(lines3));
         assertEquals(result4, solution.solution1_1(lines4));
         assertEquals(result5, solution.solution1_1(lines5));
+    }
+
+    @Test
+    void solution2() {
+        assertEquals(result1, solution.solution2(lines1));
+        assertEquals(result2, solution.solution2(lines2));
+        assertEquals(result3, solution.solution2(lines3));
+        assertEquals(result4, solution.solution2(lines4));
+        assertEquals(result5, solution.solution2(lines5));
     }
 }

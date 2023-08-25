@@ -71,7 +71,8 @@ public class Lessons120875 {
         }
     }
 
-    // 풀이 1 - continue로 앞에서 사용한 수이면 거르는 로직을 더 간단하게 만들 수 없을지??
+    // 풀이 1 - 기울기가 같으면 분모로 나타냈을 때 (분자 1 * 분모 2) == (분자 2 * 분모 1)임을 활용
+    // ?? continue로 앞에서 사용한 수이면 거르는 로직을 더 간단하게 만들 수 없을지??
     public int solution1(int[][] dots) {
         // 3가지 경우의 수 (0-1 2-3 비교) (0-2 1-3 비교) (0-3 1-2 비교)
         int answer = 0;
@@ -98,6 +99,38 @@ public class Lessons120875 {
             }
 
             if (criteriaSlopeDenominator * compSlopeNumerator == criteriaSlopeNumerator * compSlopeDenominator) {
+                answer = 1;
+                break;
+            }
+        }
+        return answer;
+    }
+    // 풀이 1-1 - 풀이 1 수정
+    // (1) if (j == i)  if (k == i || k == j) 거르는 부분 약간 정리
+    // (2) 2/6이나 1/3이나 double로 가도 같으므로 double을 사용해도 됨
+    // cf. 풀이 1이나 풀이 1-1이나 거의 같고, 경우의 수가 3개 뿐이라 문제가 생기지 않았을 뿐이지 근본적으로 좋은 순회는 아니라고 생각함
+    // - 그럼 어떻게 고쳐야 할지?
+    public int solution1_1(int[][] dots) {
+        // 3가지 경우의 수 (0-1 2-3 비교) (0-2 1-3 비교) (0-3 1-2 비교)
+        int answer = 0;
+
+        for (int i = 1; i < dots.length; i++) {
+            double slope = ((dots[i][1] - dots[0][1]) / (double) (dots[i][0] - dots[0][0]));
+
+            double comparison = 0;
+            for (int j = 1; j < dots.length; j++) {
+                if (j == i) {
+                    continue;
+                }
+                for (int k = 1; k < dots.length; k++) {
+                    if (k == i || k == j) {
+                        continue;
+                    }
+                    comparison = ((dots[j][1] - dots[k][1]) / (double) (dots[j][0] - dots[k][0]));
+                }
+            }
+
+            if (slope == comparison) {
                 answer = 1;
                 break;
             }

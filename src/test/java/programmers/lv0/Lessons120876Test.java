@@ -33,6 +33,17 @@ class Lessons120876Test {
     }
 
     @Test
+    void solution1_2() {
+        assertEquals(result1, solution.solution1_2(lines1));
+        assertEquals(result2, solution.solution1_2(lines2));
+        assertEquals(result3, solution.solution1_2(lines3));
+        assertEquals(result4, solution.solution1_2(lines4));
+        assertEquals(result5, solution.solution1_2(lines5));
+        assertEquals(result6, solution.solution1_2(lines6));
+        assertEquals(result7, solution.solution1_2(lines7));
+    }
+
+    @Test
     void solution2() {
         assertEquals(result1, solution.solution2(lines1));
         assertEquals(result2, solution.solution2(lines2));

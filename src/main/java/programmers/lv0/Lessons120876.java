@@ -221,6 +221,29 @@ public class Lessons120876 {
             return (intersections[0][1] - intersections[0][0]) + (intersections[1][1] - intersections[1][0]);
         }
     }
+    // 풀이 1_2 - 점으로 따지기 수정 0.5 사용 - 통과
+    public int solution1_2(int[][] lines) {
+        int max = Math.max(Math.max(lines[0][1], lines[1][1]), lines[2][1]);
+        int min = Math.min(Math.min(lines[0][0], lines[1][0]), lines[2][0]);
+
+        int[] linesOverDots = new int[max - min];
+        for (int i = 0; i < max - min; i++) { // i = 0일 때 (min + 0.5), i = max - min - 1일 때가 (max - 0.5)와 대응됨
+            for (int[] line : lines) {
+                if (min + i + 0.5 > line[0] && min + i + 0.5 < line[1]) {
+                    linesOverDots[i]++;
+                }
+            }
+        }
+
+        int countDot = 0;
+        for (int i = 0; i < linesOverDots.length; i++) {
+            if (linesOverDots[i] >= 2) {
+                countDot++;
+            }
+        }
+
+        return countDot;
+    }
 
     // 풀이 2 - sort 후 경우의 수 - 테스트 1 실패
     // (1) 겹치는 곳이 나눠져 있지 않은 경우 start = line[0][0], end = Math.max(line[0][1], line[1][1])

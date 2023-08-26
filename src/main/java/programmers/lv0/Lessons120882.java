@@ -44,13 +44,18 @@ public class Lessons120882 {
     public int[] solution2(int[][] score) {
         List<Integer> scoreList = new ArrayList<>();
         for(int[] t : score){
-            scoreList.add(t[0] + t[1]);
+            scoreList.add(t[0] + t[1]); // 평균 내진 않고, 총 더한 값으로 비교해서 double 사용 안 함
         }
-        scoreList.sort(Comparator.reverseOrder());
+        scoreList.sort(Comparator.reverseOrder()); 
+        // List의 sort(comparator) 사용
+        // Comparator.reverseOrder()는 Collections.reversOrder() 호출
+        // ====> (Comparator<T>) ReverseComparator.REVERSE_ORDER 반환
 
         int[] answer = new int[score.length];
-        for(int i=0; i<score.length; i++){
-            answer[i] = scoreList.indexOf(score[i][0] + score[i][1])+1;
+        for (int i = 0; i < score.length; i++) {
+            answer[i] = scoreList.indexOf(score[i][0] + score[i][1]) + 1;
+            // List의 indexOf(object) 메서드를 사용할 수 있으므로 풀이 1처럼 표면적으로 중첩 for문은 안 쓰게 됨
+            // 물론 ArrayList 구현 상 indexOf(object) -> indexOfRange(Object o, int start, int end)는 for문을 사용함 
         }
         return answer;
     }

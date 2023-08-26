@@ -123,8 +123,9 @@ public class Lessons120876 {
         return overlap;
     }
 
-    // 풀이 1 - 점으로 따지자
+    // 풀이 1 - 점으로 따지자 - 테스트 2, 5, 6 실패
     public int solution1(int[][] lines) {
+        /* // 전부 순회 말고 그냥 간단하게
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < lines.length; i++) {
@@ -137,6 +138,9 @@ public class Lessons120876 {
                 }
             }
         }
+        */
+        int max = Math.max(Math.max(lines[0][1], lines[1][1]), lines[2][1]);
+        int min = Math.min(Math.min(lines[0][0], lines[1][0]), lines[2][0]);
 
         int[] countIncluded = new int[max - min - 1];
         for (int i = 1; i < max - min; i++) { // i = 1일 때가 (min + 1), i = max - min - 1일 때가 (max - 1)
@@ -166,10 +170,10 @@ public class Lessons120876 {
         } else if (countOfZero == 1) { // [0, 2] [2, 5]처럼 붙어있는 점인 경우
             return countDot + 1;
         } else { // 영역이 아예 두 군데로 나눠져 있는 경우
-            return countDot;
+            return countDot + 0;
         }
     }
-    // 풀이 1_1 - 점으로 따지기 수정
+    // 풀이 1_1 - 점으로 따지기 수정 - 테스트 3, 7 실패
     public int solution1_1(int[][] lines) {
         int max = Math.max(Math.max(lines[0][1], lines[1][1]), lines[2][1]);
         int min = Math.min(Math.min(lines[0][0], lines[1][0]), lines[2][0]);

@@ -1,4 +1,4 @@
-package programmers;
+package programmers.lv0;
 
 // lv0 문자열 곱하기
 public class Lessons181940 {

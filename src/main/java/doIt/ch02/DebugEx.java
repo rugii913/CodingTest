@@ -10,7 +10,8 @@ public class DebugEx {
         // int answer = 0; // 오류 1. 변수 초기화 오류 찾아보기
         int A[] = new int[100_001];
         int S[] = new int[100_001];
-        for (int i = 1; i < 10_000; i++) {
+        // for (int i = 1; i < 10_000; i++) { // 오류 2. 반복문에서 인덱스 범위 지정 오류 찾아보기
+        for (int i = 0; i <= 100_000; i++) { // 반복 범위를 잘못 지정하거나 비교 연산자를 반대로 사용하는 것 유의
             A[i] = (int) (Math.random() * Integer.MAX_VALUE);
             S[i] = S[i - 1] + A[i];
         }

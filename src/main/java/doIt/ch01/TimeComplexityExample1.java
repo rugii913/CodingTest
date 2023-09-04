@@ -1,6 +1,6 @@
 package doIt.ch01;
 
-public class timeComplexityExample1 {
+public class TimeComplexityExample1 {
     public static void main(String[] args) { // 시간 복잡도 예제 - 시간 복잡도 유형 세 가지
         // 1~100 사이 값 랜덤 선택
         int findNumber = (int) (Math.random() * 100);

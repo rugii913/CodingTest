@@ -9,7 +9,11 @@ public class DebugEx {
         int testcase = sc.nextInt();
         // int answer = 0; // 오류 1. 변수 초기화 오류 찾아보기
         int A[] = new int[100_001];
-        int S[] = new int[100_001];
+        // int S[] = new int[100_001];
+        // 오류 4. 자료형 범위 오류 찾아보기 - 계산된 값을 변수에 저장할 때 변수에 지정한 자료형 범위를 넘어가는 경우 유의
+        // int 범위를 넘어가서 이상한 음수값들 보이는 상황
+        // * 처음 선언할 때 항상 int가 아니라 long을 사용하는 것도 방법
+        long S[] = new long[100_001];
         // for (int i = 1; i < 10_000; i++) { // 오류 2. 반복문에서 인덱스 범위 지정 오류 찾아보기
         for (int i = 1; i <= 100_000; i++) { // 반복 범위를 잘못 지정하거나 비교 연산자를 반대로 사용하는 것 유의
             A[i] = (int) (Math.random() * Integer.MAX_VALUE);
@@ -17,7 +21,10 @@ public class DebugEx {
         }
         for (int t = 1; t < testcase; t++) {
             int query = sc.nextInt(); // query는 합할 범위의 개수라고 생각하면 될 것 같다.
-            int answer = 0; // 오류 1. 변수 초기화 오류 찾아보기 - 그 다음 테스트로 넘어갈 때 answer는 초기화되어야 한다.
+            // int answer = 0;
+            long answer = 0; // 오류 1. 변수 초기화 오류 찾아보기 - 그 다음 테스트로 넘어갈 때 answer는 초기화되어야 한다.
+            // 오류 4. 자료형 범위 오류 찾아보기 - 계산된 값을 변수에 저장할 때 변수에 지정한 자료형 범위를 넘어가는 경우 유의
+            // int 범위를 넘어가서 이상한 음수값들 보이는 상황
             for (int i = 0; i < query; i++) {
                 int start = sc.nextInt();
                 int end = sc.nextInt();

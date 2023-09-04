@@ -22,7 +22,10 @@ public class DebugEx {
                 int start = sc.nextInt();
                 int end = sc.nextInt();
                 answer += S[end] - S[start - 1];
-                System.out.println(testcase + " " + answer);
+                // System.out.println(testcase + " " + answer);
+                // 오류 3. 잘못된 변수 사용 오류 찾아보기 - 출력 부분이나 로직 안에서 다른 변수를 혼동하여 잘못 사용하는 것 유의
+                // ex. 반복문에서 반복 변수를 사용해야 하는데 기준 변수를 사용, 변수 이름 자체가 비슷해서 잘못 사용
+                System.out.println(t + " " + answer);
             }
         }
     }

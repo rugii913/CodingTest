@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Lessons120876Test {
-    Lessons120876 solution = new Lessons120876();
+    Lessons120876Fail solution = new Lessons120876Fail();
     int[][] lines1 = {{0, 1}, {2, 5}, {3, 9}}; // 2-3
     int[][] lines2 = {{-1, 1}, {1, 3}, {3, 9}}; // x
     int[][] lines3 = {{0, 5}, {3, 9}, {1, 10}}; // 1-2-3

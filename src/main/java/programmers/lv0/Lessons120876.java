@@ -38,7 +38,7 @@ public class Lessons120876 {
         return countDot;
     }
 
-    // 풀이 2 - Map의 merge(~), Integer.sum(int, int) 사용, 맞닿는 경우 회피 / 0.85 ~ 1.99 ms
+    // 풀이 2(다른 풀이 참고) - Map의 merge(~), Integer.sum(int, int) 사용, 맞닿는 경우 회피 / 0.85 ~ 1.99 ms
     // *** default V merge(K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction)
     // 원래 있던 값과 새로 들어갈 값의 관계를 설정해서 새로 매핑
     // - 왜 from은 포함하고 to는 제외하는가?
@@ -59,7 +59,7 @@ public class Lessons120876 {
         return (int) map.values().stream().filter(i -> i > 1).count();
     }
 
-    // 풀이 2-1 - Map merge(~) 대신 getOrDefault로 간단한 덧셈, 맞닿는 경우 회피 / 0.05 ~ 0.49 ms
+    // 풀이 2-1(다른 풀이 참고) - Map merge(~) 대신 getOrDefault로 간단한 덧셈, 맞닿는 경우 회피 / 0.05 ~ 0.49 ms
     public int solution2_1(int[][] lines) {
         Map<Integer, Integer> map = new HashMap<>();
 
@@ -90,7 +90,7 @@ public class Lessons120876 {
         return answer;
     }
 
-    // 풀이 3 - 컬렉션 미사용, 맞닿는 경우 회피 / 0.02 ~ 0.05 ms
+    // 풀이 3(다른 풀이 참고) - 컬렉션 미사용, 맞닿는 경우 회피 / 0.02 ~ 0.05 ms
     public int solution3(int[][] lines) {
         int answer = 0;
         for (int i = -100; i <= 100; i++) { // 문제 조건 사용 // cf. 원래 풀이는 i < 100으로 되어있는데 테스트 케이스 문제인 듯
@@ -106,7 +106,7 @@ public class Lessons120876 {
         return answer;
     }
 
-    // 풀이 4 - ArrayList 사용, 맞닿는 경우 회피 / 0.03 ~ 1.58 ms
+    // 풀이 4(다른 풀이 참고) - ArrayList 사용, 맞닿는 경우 회피 / 0.03 ~ 1.58 ms
     // List<Integer> overlap에 해당 Integer가 없으면 추가, 있으면 제거하면서 count++
     // 세 번 겹치는 Integer인 경우 그 Integer로 인해 count는 올라갔지만, 마지막 overLap에는 그 숫자가 남아있음
     // -> 선이 3개보다 많은 경우로 일반화 불가능

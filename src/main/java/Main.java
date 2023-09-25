@@ -1,7 +1,7 @@
-import programmers.lv0.Lessons181950;
+import programmers.lv0.Lessons181951;
 
 public class Main {
     public static void main(String[] args) {
-        new Lessons181950().solution1();
+        new Lessons181951().solution1();
     }
 }

@@ -19,7 +19,7 @@ public class Lessons120923 {
         return answer;
     }
 
-    // 풀이 2 - 등차수열의 합 이용
+    // 풀이 2(다른 풀이 참고) - 등차수열의 합 이용
     public int[] solution2(int num, int total) {
         int[] answer = new int[num];
         int check = num * (num + 1) / 2; // 1 ~ num의 합

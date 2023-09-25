@@ -20,6 +20,8 @@ public class Lessons181949 {
         }
 
         System.out.println(new String(charArrayFromStr));
+
+        sc.close();
     }
 
     // 풀이 1-1(다른 풀이 참고) - 아스키 코드 +32  *각 문자를 얻을 때마다 PrintStream이 한 번씩 print 하게 해도 생각보다는 느리지 않음
@@ -34,5 +36,7 @@ public class Lessons181949 {
                 System.out.print((char) (c - 32));
             }
         }
+
+        sc.close();
     }
 }

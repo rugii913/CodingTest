@@ -18,5 +18,7 @@ public class Lessons181950 {
         System.out.print(repeatStr);
         */
         System.out.print(str.repeat(n));
+
+        sc.close();
     }
 }

@@ -14,7 +14,7 @@ public class Lessons120922 {
         // return (Math.min(M, N) - 1) + (Math.max(M, N) - 1) * Math.min(M, N);
     }
 
-    // 풀이 2
+    // 풀이 2(다른 풀이 참고)
     public int solution2(int M, int N) {
         // return M * N - 1; // 항들을 합치면 왼쪽처럼 표현할 수 있으나, 사람이 의미를 부여하기 어려운 식
         return M - 1 + (N - 1) * M;

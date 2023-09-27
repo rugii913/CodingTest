@@ -1,7 +1,7 @@
-import programmers.lv0.Lessons181945;
+import doIt.ch03DataStructure.P1546;
 
 public class Main {
     public static void main(String[] args) {
-        new Lessons181945().solution1();
+        new P1546().solution1();
     }
 }

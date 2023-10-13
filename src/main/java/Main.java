@@ -1,9 +1,9 @@
-import doIt.ch03DataStructure.P11660;
+import doIt.ch03DataStructure.P10986;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        new P11660().solution2_2();
+        new P10986().solution1();
     }
 }

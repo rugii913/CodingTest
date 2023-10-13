@@ -35,6 +35,12 @@ public class P1940 {
      *   - 메모리 17,224 KB, 시간 212 ms
      */
 
+    /*
+     * 시간 복잡도 관련
+     * N 최대 15,000, 제한 시간 2초(2 * 10^8)이므로
+     * -> O(nlogn) 알고리즘 사용 가능 - 기본 정렬 사용 가능 (log_2(15000) * 15000 ~~ 208090 = 2 * 10^5)
+     */
+
     // 풀이 1 - 2개만 합하면 되므로 모든 원소에 대해서 탐색
     public void solution1() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

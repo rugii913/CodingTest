@@ -55,6 +55,12 @@ public class P10986 {
      *      Arrays.stream(br.readLine().split(" "))을 사용하면
      *      - 메모리 138,504 KB, 시간 552ms
      */
+    /*
+     * 시간 복잡도 관련
+     * N 최대 10^6, 제한 시간 1초(2 * 10^8)
+     * -> 그러나 10^6 원소에 대해서 모든 구간 합을 구하는 방식은 사용할 수 없음
+     * -> 구간 합 배열 사용
+     */
 
     // 풀이 x - 시간 초과 - 이중 for문 등
     public void solutionx() throws IOException {

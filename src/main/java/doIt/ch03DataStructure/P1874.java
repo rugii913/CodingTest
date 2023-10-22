@@ -131,7 +131,7 @@ public class P1874 {
         br.close();
     }
 
-    // 풀이 1(책))
+    // 풀이 1(책)
     public void solution1() {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -168,5 +168,118 @@ public class P1874 {
         if (result) {
             System.out.println(bf);
         }
+    }
+
+    // 풀이 1-1 - 풀이 1 책 구현 코드 확인 후 다시 구현 // 소요시간 풀이 1보다 많이 줄어듦
+    public void solution1_1() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+
+        int[] sequence = new int[n];
+        for (int i = 0; i < n; i++) {
+            sequence[i] = Integer.parseInt(br.readLine());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        Stack<Integer> stack = new Stack<>();
+        int nextPushTarget = 1;
+        for (int number : sequence) {
+            while (nextPushTarget <= number) {
+                stack.push(nextPushTarget++);
+                sb.append("+\n");
+            }
+
+            Integer popped = stack.pop();
+            if (popped != number) {
+                sb = new StringBuilder("NO");
+                break;
+            }
+            sb.append("-\n");
+        }
+
+        System.out.println(sb);
+        br.close();
+    }
+
+    // 풀이 2 - 책 구현 코드와 그 전까지 실패한 방식을 적절하게 섞으려고 했다. 근데 풀어 1-1과 큰 차이는 없는 듯하다.
+    public void solution2() throws IOException {
+        String plus = "+\n";
+        String minus = "-\n";
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int n = Integer.parseInt(br.readLine());
+
+        Stack<Integer> stack = new Stack<>();
+        int lastPushed = 0;
+        for (int i = 0; i < n; i++) {
+            int sequenceNumber = Integer.parseInt(br.readLine());
+
+            /*
+            // 아래 while로 개량
+            if (sequenceNumber > lastPushed) {
+                for (int j = lastPushed + 1; j <= sequenceNumber; j++) {
+                    stack.push(j);
+                    lastPushed++;
+                    sb.append("+\n");
+                }
+            }
+             */
+
+            while (lastPushed < sequenceNumber) {
+                stack.push(++lastPushed);
+                sb.append(plus);
+            }
+
+            if (sequenceNumber != stack.peek()) {
+                sb = new StringBuilder("NO\n");
+                break;
+            }
+
+            stack.pop();
+            sb.append(minus);
+        }
+
+        System.out.print(sb);
+
+        br.close();
+    }
+
+    // 풀이 2x1 - 스택 직접 사용, 책 구현 코드와 그 전까지 실패한 방식을 적절하게 섞으려고 한 다른 시도 - 여전히 실패함
+    // - lastPushed와 lastPopped를 사용하는 로직에 문제가 있는 것 같다.
+    public void solution2x1() throws IOException {
+        String plus = "+\n";
+        String minus = "-\n";
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int n = Integer.parseInt(br.readLine());
+
+        int lastPushed = 0;
+        int lastPopped = 0;
+        boolean isImpossible = false;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            int sequenceNumber = Integer.parseInt(br.readLine());
+            if (sequenceNumber > lastPushed) {
+                for (int j = lastPushed + 1; j <= sequenceNumber; j++) {
+                    stack.push(j);
+                    sb.append(plus);
+                }
+                lastPushed = sequenceNumber;
+            } else if (sequenceNumber > lastPopped) { // popped <= lastPushed로 이미 걸러진 상태이고, 같은 수가 두 번 나오지는 않으므로 popped < lastPushed이다.
+                isImpossible = true;
+            }
+            sb.append(minus);
+            lastPopped = sequenceNumber;
+        }
+
+        if (isImpossible) {
+            sb = new StringBuilder("NO\n");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        System.out.print(sb);
+
+        br.close();
     }
 }

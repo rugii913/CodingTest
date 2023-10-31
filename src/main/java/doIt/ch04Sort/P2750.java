@@ -33,7 +33,7 @@ public class P2750 {
     *     (2) 인접한 데이터 값을 비교
     *     (3) swap 조건에
     *     (4) 루프 범위가 끝날 때까지 (2) ~ (3)을 반복
-    *     (5) 정렬된 영역을 확인하여 다음 루프를 실행할 때는 이 영역을 제외
+    *     (5) 정렬된 영역을 설정하여 다음 루프를 실행할 때는 이 영역을 제외
     *     (6) 비교 대상이 없을 때까지 (1) ~ (5)를 반복
     * */
 
@@ -129,7 +129,7 @@ public class P2750 {
             A[i] = sc.nextInt();
         }
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) { // i = 정렬된 영역의 개수라고 생각하면 될 것
             for (int j = 0; j < N - 1 - i; j++) {
                 if (A[j] > A[j + 1]) {
                     int temp = A[j];
@@ -157,7 +157,7 @@ public class P2750 {
             A[i] = sc.nextInt();
         }
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) { // i = 정렬된 영역의 개수라고 생각하면 될 것
             boolean swapped = false;
             for (int j = 0; j < N - 1 - i; j++) {
                 if (A[j] > A[j + 1]) {

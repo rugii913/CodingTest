@@ -70,7 +70,7 @@ public class Lessons12915 {
     // 풀이 3(다른 풀이 참고) - 배열에서 직접 정렬, 빠름
     public String[] solution3(String[] strings, int n) {
         for (int i = 0; i < strings.length - 1; i++) { // charAt(n) 비교하며 정렬
-            String temp = "";
+            String temp;
             for (int k = i + 1; k < strings.length; k++) {
                 if (strings[i].charAt(n) > strings[k].charAt(n)) {
                     temp = strings[i];
@@ -80,7 +80,7 @@ public class Lessons12915 {
             }
         }
         for (int i = 0; i < strings.length - 1; i++) { // 일반적인 String lexicographically 정렬
-            String temp = "";
+            String temp;
             for (int k = i + 1; k < strings.length; k++) {
                 if (strings[i].charAt(n) == strings[k].charAt(n)) {
                     if (strings[i].compareTo(strings[k]) > 0) {
@@ -92,6 +92,27 @@ public class Lessons12915 {
             }
         }
 
+        return strings;
+    }
+
+    // 풀이 3-1(다른 풀이 참고) - 위 풀이에서 for 줄이기
+    public String[] solution3_1(String[] strings, int n) {
+        for (int i = 0; i < strings.length - 1; i++) {
+            String tmp;
+            for (int k = i + 1; k < strings.length; k++) {
+                if (strings[i].charAt(n) > strings[k].charAt(n)) {
+                    tmp = strings[i];
+                    strings[i] = strings[k];
+                    strings[k] = tmp;
+                } else if (strings[i].charAt(n) == strings[k].charAt(n)) {
+                    if (strings[i].compareTo(strings[k]) > 0) {
+                        tmp = strings[i];
+                        strings[i] = strings[k];
+                        strings[k] = tmp;
+                    }
+                }
+            }
+        }
         return strings;
     }
 }

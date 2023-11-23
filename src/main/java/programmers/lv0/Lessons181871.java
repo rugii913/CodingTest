@@ -9,9 +9,9 @@ public class Lessons181871 {
     public int solution1(String myString, String pat) {
         /*
         // banana 같은 경우 때문에 안 됨
-        int originalLegnth = myString.length();
+        int originalLength = myString.length();
         int processedLength = myString.replace(pat, "").length();
-        return (originalLegnth - processedLength) / pat.length();
+        return (originalLength - processedLength) / pat.length();
          */
         int count = 0;
         for (int i = 0; i <= myString.length() - pat.length(); i++) {
@@ -32,6 +32,19 @@ public class Lessons181871 {
             }
         }
         return cnt;
+    }
+
+    // 풀이 2-1(다른 풀이 참고 수정)
+    public int solution2_1(String myString, String pat) {
+        int answer = 0;
+
+        int fromIndex = 0;
+        while (myString.indexOf(pat, fromIndex) >= 0) {
+            answer++;
+            fromIndex = myString.indexOf(pat, fromIndex) + 1;
+        }
+
+        return answer;
     }
 
     // 풀이 3(다른 풀이 참고)
